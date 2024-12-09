@@ -29,13 +29,14 @@ const findAllStationaryProduct = async (
   res: Response
 ): Promise<any> => {
   try {
-    const searchTerm: string | ParsedQs | string[] | ParsedQs[] | undefined =
-      req.query.searchTerm;
+    const { searchTerm } = req.query;
     if (!searchTerm) {
       return res.status(404).json({ error: "query not found" });
     }
 
-    const result = await stationaryServices.findStationaryProduct(searchTerm);
+    const result = await stationaryServices.findStationaryProduct(
+      searchTerm as string
+    );
     if (result.length === 0) {
       return res.status(404).json({ error: "Product not found" });
     }
